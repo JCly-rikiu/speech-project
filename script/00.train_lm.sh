@@ -13,3 +13,5 @@ mkdir -p $dir
 # TODO:
 #	1. process training text file
 #	2. train a language model named $lm_output
+cut -d ' ' -f 2- $train_text > exp/lm/LM_train.text
+$srilm_bin/ngram-count -order 2 -kndiscount -text exp/lm/LM_train.text -vocab $lexicon -unk -lm $lm_output
