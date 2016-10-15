@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [ -f setup.sh ]; then 
+if [ -f setup.sh ]; then
   . setup.sh;
-else 
+else
   echo "ERROR: setup.sh is missing!";
-  exit 1; 
+  exit 1;
 fi
 
 #
@@ -17,8 +17,8 @@ lexicon_adapt=material/lexicon.adapt.txt
 lexicon_decode=material/lexicon.decode.txt
 
 # TODO: try to replace with your language model
-lm=material/lm.arpa.txt
-#lm=exp/lm/lm.arpa.txt
+# lm=material/lm.arpa.txt
+lm=exp/lm/lm.arpa.txt
 
 proto=material/topo.proto
 train_text=material/train.text
@@ -144,11 +144,11 @@ cat decode/lm.arpa.txt \
       --keep_isymbols=false --keep_osymbols=false \
     | fstrmepsilon ) 1> decode/G.fst 2> /dev/null
 
-# decoding LG 
+# decoding LG
 
 ( fsttablecompose decode/L.fst decode/G.fst \
   | fstdeterminizestar --use-log=true \
-  | fstminimizeencoded ) 1> decode/LG.fst 2> /dev/null 
+  | fstminimizeencoded ) 1> decode/LG.fst 2> /dev/null
 
 # adaptation lexicon operation
 
@@ -168,7 +168,7 @@ utility/make_lexicon_fst.pl adapt/lexicon.txt 0.5 sil \
 ln -sf ../$spk2utt adapt/spk2utt.txt
 ln -sf ../$utt2spk adapt/utt2spk.txt
 
-# all operations are finished 
+# all operations are finished
 
 sec=$SECONDS
 
